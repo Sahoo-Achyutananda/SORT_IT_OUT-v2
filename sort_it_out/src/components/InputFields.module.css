@@ -1,0 +1,65 @@
+.speedSlider :global(.MuiSlider-track) {
+  height: 10px;
+}
+
+.speedSlider :global(.MuiSlider-rail) {
+  height: 10px;
+}
+
+.speedSlider :global(.MuiSlider-thumb) {
+  height: 20px;
+  width: 20px;
+}
+
+.valueSlider :global(.MuiSlider-track) {
+  height: 10px;
+}
+
+.valueSlider :global(.MuiSlider-rail) {
+  height: 10px;
+}
+
+.valueSlider :global(.MuiSlider-thumb) {
+  height: 20px;
+  width: 20px;
+}
+
+.valueSlider :global(.MuiSlider-track),
+.valueSlider :global(.MuiSlider-thumb) {
+  background-color: #4caf50;
+}
+.valueSlider :global(.MuiSlider-rail) {
+  background-color: #c8e6c9;
+}
+
+.sliderDiv {
+  height: auto;
+  box-sizing: border-box;
+  padding: 30px;
+  width: 500px;
+}
+
+.speedDiv {
+  background-color: rgba(168, 209, 255, 0.501);
+}
+
+.valueDiv {
+  background-color: #c1ffc35d;
+}
+
+.userInputs {
+  display: flex;
+  align-items: center;
+}
+
+.buttonStart,
+.buttonPause {
+  border: none;
+  width: auto;
+  height: 50%;
+}
+
+.buttonStart {
+  background-color: #4caf50;
+  color: white;
+}

@@ -1,0 +1,35 @@
+.arrayContainer {
+  background-color: rgba(164, 247, 193, 0.331);
+  height: 500px;
+  width: 90vw;
+
+  display: flex;
+  flex-direction: row;
+
+  margin-top: 30px;
+
+  overflow-x: auto;
+}
+
+.bar {
+  /* background-color: rebeccapurple; */
+  margin-inline: 1px;
+}
+
+.box {
+  flex-shrink: 0; /* Prevent shrinking */
+  width: 70px; /* Fixed width */
+  height: 70px; /* Fixed height */
+  background: rebeccapurple;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-inline: 2px;
+}
+
+.selected {
+  background-color: pink;
+  margin-inline: 1px;
+}
