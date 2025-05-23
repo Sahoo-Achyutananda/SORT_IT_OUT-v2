@@ -46,7 +46,16 @@ function Bar({ arrayContainerRef, state, height, index }) {
 
   return (
     <div className={styles.barContainer}>
-      <div className={styles.index} style={{ width: dimensions.width }}>
+      <div
+        className={styles.index}
+        style={{
+          width: dimensions.width,
+          backgroundColor: state.highlightIndices.includes(index)
+            ? "green"
+            : "khaki",
+          color: state.highlightIndices.includes(index) ? "white" : "black",
+        }}
+      >
         {index}
       </div>
       <div className={`${styles.bar}`} style={dimensions}></div>

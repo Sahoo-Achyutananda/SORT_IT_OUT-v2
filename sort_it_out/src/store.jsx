@@ -22,6 +22,11 @@ export function reducer(state, action) {
         ...state,
         selectedIndices: action.payload,
       };
+    case "highlightIndices":
+      return {
+        ...state,
+        highlightIndices: action.payload,
+      };
     case "sortingStarted":
       return {
         ...state,
@@ -43,6 +48,7 @@ export const initialState = {
   toggle: "bar", // can have only 2 values - bar and box
   array: Array.from({ length: 20 }, () => Math.floor(Math.random() * 350) + 1),
   selectedIndices: [],
+  highlightIndices: [],
   isSorting: false,
   hold: [], // to highlight a particular bar/box in the visualizer - used to show current min element in Selection sort
 };
