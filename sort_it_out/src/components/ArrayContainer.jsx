@@ -44,7 +44,14 @@ function Bar({ arrayContainerRef, state, height, index }) {
     }
   }, [arrayContainerRef, state.value, height, state.selectedIndices, index]);
 
-  return <div className={`${styles.bar}`} style={dimensions}></div>;
+  return (
+    <div className={styles.barContainer}>
+      <div className={styles.index} style={{ width: dimensions.width }}>
+        {index}
+      </div>
+      <div className={`${styles.bar}`} style={dimensions}></div>
+    </div>
+  );
 }
 
 function Box({ height }) {

@@ -45,7 +45,6 @@ function InputFields({
       </div>
       <button
         className={styles.buttonStart}
-        // disabled={state.isSorting ? true : false}
         onClick={() =>
           algo(state.array, () => stateRef, dispatch, controllerRef)
         }
