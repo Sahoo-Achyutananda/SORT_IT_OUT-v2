@@ -1,5 +1,9 @@
 import Slider from "@mui/material/Slider";
 import styles from "./InputFields.module.css";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import StopIcon from "@mui/icons-material/Stop";
+import DataArrayIcon from "@mui/icons-material/DataArray";
+import SpeedIcon from "@mui/icons-material/Speed";
 
 function InputFields({
   dispatch,
@@ -12,6 +16,7 @@ function InputFields({
   return (
     <div className={styles.userInputs}>
       <div className={`${styles.sliderDiv} ${styles.speedDiv}`}>
+        <SpeedIcon fontSize="small" sx={{ color: "white" }} />
         <Slider
           aria-label="Speed"
           defaultValue={initialState.speed}
@@ -28,6 +33,7 @@ function InputFields({
         />
       </div>
       <div className={`${styles.sliderDiv} ${styles.valueDiv}`}>
+        <DataArrayIcon fontSize="small" sx={{ color: "white" }} />
         <Slider
           aria-label="Speed"
           defaultValue={20}
@@ -43,15 +49,23 @@ function InputFields({
           className={styles.valueSlider}
         />
       </div>
+      {/* <div className={styles.buttonDiv}> */}
       <button
         className={styles.buttonStart}
+        // disabled={state.isSorting === true ? true : false}
         onClick={() =>
           algo(state.array, () => stateRef, dispatch, controllerRef)
         }
       >
-        Start
+        <PlayArrowIcon fontSize="small" />
       </button>
-      <button className={styles.buttonPause}> Pause </button>
+      <button
+        className={styles.buttonReset}
+        onClick={() => dispatch({ type: "resetValues" })}
+      >
+        <StopIcon fontSize="small" />
+      </button>
+      {/* </div> */}
     </div>
   );
 }

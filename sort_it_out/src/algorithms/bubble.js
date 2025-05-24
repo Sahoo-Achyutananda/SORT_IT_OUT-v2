@@ -1,31 +1,45 @@
-import * as utils from "../utils/utils.js";
-
 async function bubbleSort(arr, getStateRef, dispatch, controllerRef) {
+  console.log(controllerRef);
   dispatch({ type: "sortingStarted" });
   const array = [...arr];
-
   let len = array.length;
-  let i, j;
 
-  for (i = 0; i < len; i++) {
-    for (j = 0; j < len - i - 1; j++) {
-      // if (controllerRef.current.signal.aborted()) return;
-      console.log(controllerRef.current);
-      let currentState = getStateRef(); // to fetch the updated state everytime.
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len - i - 1; j++) {
+      if (!getStateRef().current.isSorting) return;
 
-      if (currentState.current.isSorting === false) return;
-
+      // Highlight comparison
       dispatch({ type: "selectedIndices", payload: [j, j + 1] });
-      if (array[j] > array[j + 1]) {
-        let temp = array[j];
-        array[j] = array[j + 1];
-        array[j + 1] = temp;
-      }
-      dispatch({ type: "arrayMovements", payload: array });
 
-      await utils.randomDelay(1 / currentState.current.speed);
+      // // Add transition delay for comparison visualization
+      await new Promise((resolve) =>
+        setTimeout(resolve, 500 / getStateRef().current.speed)
+      );
+
+      if (array[j] > array[j + 1]) {
+        // Add pre-swap delay
+        await new Promise((resolve) =>
+          setTimeout(resolve, 200 / getStateRef().current.speed)
+        );
+
+        // Perform swap
+        [array[j], array[j + 1]] = [array[j + 1], array[j]];
+        dispatch({ type: "arrayMovements", payload: [...array] });
+
+        // Add post-swap delay
+        await new Promise((resolve) =>
+          setTimeout(resolve, 200 / getStateRef().current.speed)
+        );
+      }
+
+      // Clear selection with small delay
+      dispatch({ type: "selectedIndices", payload: [] });
+      await new Promise((resolve) =>
+        setTimeout(resolve, 100 / getStateRef().current.speed)
+      );
     }
   }
+  dispatch({ type: "sortingCompleted" });
 }
 
 export default bubbleSort;

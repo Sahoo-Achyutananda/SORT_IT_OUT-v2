@@ -1,26 +1,30 @@
 import styles from "./ArrayContainer.module.css";
 // import * as utils from "../utils/utils.js";
 import { useRef, useEffect, useState } from "react";
+import Tooltip from "@mui/material/Tooltip";
 
 function ArrayContainer({ state }) {
   const arrayContainerRef = useRef(null);
   return (
-    <div className={styles.arrayContainer} ref={arrayContainerRef}>
-      {state.toggle === "bar"
-        ? state.array.map((value, i) => {
-            return (
-              <Bar
-                key={i}
-                arrayContainerRef={arrayContainerRef}
-                state={state}
-                height={value}
-                index={i}
-              />
-            );
-          })
-        : state.array.map((value, i) => {
-            return <Box key={i} height={value} />;
-          })}
+    <div>
+      <div className={styles.arrayContainer} ref={arrayContainerRef}>
+        {state.toggle === "bar"
+          ? state.array.map((value, i) => {
+              return (
+                <Bar
+                  key={i}
+                  arrayContainerRef={arrayContainerRef}
+                  state={state}
+                  height={value}
+                  index={i}
+                />
+              );
+            })
+          : state.array.map((value, i) => {
+              return <Box key={i} height={value} />;
+            })}
+      </div>
+      <div></div>
     </div>
   );
 }
@@ -37,28 +41,33 @@ function Bar({ arrayContainerRef, state, height, index }) {
       setDimensions({
         height: height,
         width: `${boxWidth}px`,
-        backgroundColor: state.selectedIndices.includes(index)
-          ? "pink"
-          : "rebeccapurple",
       });
     }
   }, [arrayContainerRef, state.value, height, state.selectedIndices, index]);
 
+  const barClasses = [
+    styles.bar,
+    state.selectedIndices.includes(index) ? styles.selected : "",
+  ].join(" ");
+
+  const indexClasses = [
+    styles.index,
+    state.highlightIndices.includes(index) ? styles.highlightedIndex : "",
+  ].join(" ");
+
   return (
     <div className={styles.barContainer}>
       <div
-        className={styles.index}
+        className={indexClasses}
         style={{
           width: dimensions.width,
-          backgroundColor: state.highlightIndices.includes(index)
-            ? "green"
-            : "khaki",
-          color: state.highlightIndices.includes(index) ? "white" : "black",
         }}
       >
         {index}
       </div>
-      <div className={`${styles.bar}`} style={dimensions}></div>
+      <Tooltip title={height} arrow>
+        <div className={barClasses} style={dimensions}></div>
+      </Tooltip>
     </div>
   );
 }

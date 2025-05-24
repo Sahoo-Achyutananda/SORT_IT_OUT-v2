@@ -4,6 +4,14 @@ export function reducer(state, action) {
   switch (action.type) {
     case "speedChange":
       return { ...state, speed: Number(action.payload) };
+    case "resetValues":
+      return {
+        ...state,
+        array: utils.generateArray(state.value),
+        selectedIndices: [],
+        isSorting: false,
+        time: 0,
+      };
     case "valueChange":
       return {
         ...state,
@@ -11,6 +19,7 @@ export function reducer(state, action) {
         array: utils.generateArray(Number(action.payload)),
         selectedIndices: [],
         isSorting: false,
+        time: 0,
       };
     case "arrayMovements":
       return {
@@ -31,11 +40,22 @@ export function reducer(state, action) {
       return {
         ...state,
         isSorting: true,
+        time: 0,
       };
     case "hold":
       return {
         ...state,
         hold: action.payload,
+      };
+    case "tick":
+      return {
+        ...state,
+        time: state.isSorting ? state.time + 1 : state.time,
+      };
+    case "sortingCompleted":
+      return {
+        ...state,
+        isSorting: false,
       };
     case "toggleChange":
       return { ...state, toggle: action.payload };
@@ -50,5 +70,6 @@ export const initialState = {
   selectedIndices: [],
   highlightIndices: [],
   isSorting: false,
+  time: 0,
   hold: [], // to highlight a particular bar/box in the visualizer - used to show current min element in Selection sort
 };

@@ -7,8 +7,23 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import styles from "./SortingLayout.module.css";
 import { reducer, initialState } from "../store.jsx";
+import { styled } from "@mui/material/styles";
+import Timer from "./Timer.jsx";
+import Title from "./Title.jsx";
 
-function SortingLayout({ algorithm , json}) {
+import BarChartIcon from "@mui/icons-material/BarChart";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+
+const CustomToggleButton = styled(ToggleButton)(() => ({
+  color: "white",
+  backgroundColor: "#424242",
+  "&.Mui-selected": {
+    color: "white",
+    backgroundColor: "rgb(103, 3, 204)",
+  },
+}));
+
+function SortingLayout({ algorithm, json }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const stateRef = useRef(state);
@@ -23,29 +38,40 @@ function SortingLayout({ algorithm , json}) {
 
   return (
     <div className={styles.SortingLayout}>
-      <InputFields
-        dispatch={dispatch}
-        state={state}
-        stateRef={stateRef}
-        initialState={initialState}
-        algo={algorithm}
-        controllerRef={controllerRef}
-      ></InputFields>
-      <ToggleButtonGroup
-        color="secondary"
-        value={state.toggle}
-        exclusive
-        onChange={(e) =>
-          dispatch({ type: "toggleChange", payload: e.target.value })
-        }
-      >
-        <ToggleButton value="bar">Bars</ToggleButton>
-        <ToggleButton value="box">Boxes</ToggleButton>
-      </ToggleButtonGroup>
+      <Title title={json.name} />
+      <div className={styles.utilities}>
+        <InputFields
+          dispatch={dispatch}
+          state={state}
+          stateRef={stateRef}
+          initialState={initialState}
+          algo={algorithm}
+          controllerRef={controllerRef}
+        ></InputFields>
+        <Timer getState={() => state} dispatch={dispatch} />
+        <ToggleButtonGroup
+          color="primary"
+          size="small"
+          value={state.toggle}
+          exclusive
+          onChange={(e, newValue) => {
+            if (newValue) dispatch({ type: "toggleChange", payload: newValue });
+          }}
+        >
+          <CustomToggleButton value="bar">
+            <BarChartIcon fontSize="small" />
+          </CustomToggleButton>
+          <CustomToggleButton value="box">
+            <WidgetsIcon fontSize="small" />
+          </CustomToggleButton>
+        </ToggleButtonGroup>
+      </div>
       <ArrayContainer state={state} />
       <div className={styles.genInformation}>
-        <Code json = {json}/>
-        <Details json = {json} />
+        <div className={styles.infoDiv}>
+          <Code json={json} />
+          <Details json={json} />
+        </div>
       </div>
     </div>
   );

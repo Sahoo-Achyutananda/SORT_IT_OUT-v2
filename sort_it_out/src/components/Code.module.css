@@ -4,13 +4,8 @@
   height: auto;
   padding: 20px;
 
-  /* font: 500 15px "Poppins", sans-serif; */
   font-family: "Consolas", "Courier New", monospace;
   font-size: "14px";
 
-  background-color: #1c191e;
-
-  /* display: flex; */
-  /* align-items: center;
-  justify-content: center; */
+  /* background-color: #282a36ad; */
 }
