@@ -1,15 +1,14 @@
-import "./SortingLayout.css";
 import { useReducer, useRef, useEffect } from "react";
 import InputFields from "./InputFields.jsx";
 import ArrayContainer from "./ArrayContainer.jsx";
-
+import Code from "./Code.jsx";
+import Details from "./Details.jsx";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import "./SortingLayout.css";
-// import bubbleSort from "./algorithms/bubble.js";
+import styles from "./SortingLayout.module.css";
 import { reducer, initialState } from "../store.jsx";
 
-function SortingLayout({ algorithm }) {
+function SortingLayout({ algorithm , json}) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const stateRef = useRef(state);
@@ -19,14 +18,11 @@ function SortingLayout({ algorithm }) {
 
   const controllerRef = useRef(null);
   controllerRef.current = new AbortController();
-  // useEffect(()=>{
-  //   controllerRef.current.abort();
-  // },[state.value])
 
   useEffect(() => {});
 
   return (
-    <div className="SortingLayout">
+    <div className={styles.SortingLayout}>
       <InputFields
         dispatch={dispatch}
         state={state}
@@ -47,6 +43,10 @@ function SortingLayout({ algorithm }) {
         <ToggleButton value="box">Boxes</ToggleButton>
       </ToggleButtonGroup>
       <ArrayContainer state={state} />
+      <div className={styles.genInformation}>
+        <Code json = {json}/>
+        <Details json = {json} />
+      </div>
     </div>
   );
 }

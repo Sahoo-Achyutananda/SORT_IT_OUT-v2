@@ -1,0 +1,24 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background: #282a36;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SortingLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.genInformation {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+}
